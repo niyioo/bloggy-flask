@@ -1,8 +1,10 @@
+from datetime import datetime
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
+from flask import request
 from app import db
 from app.models.post import Post
-from app.forms import PostForm
+from app.forms import PostForm, DeletePostForm
 
 posts = Blueprint('posts', __name__)
 
@@ -11,11 +13,11 @@ posts = Blueprint('posts', __name__)
 def create_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        post = Post(title=form.title.data, content=form.content.data, author=current_user, timestamp=datetime.utcnow())
         db.session.add(post)
         db.session.commit()
         flash('Post created successfully!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('dashboard.index'))
 
     return render_template('posts/create_post.html', form=form)
 
@@ -59,9 +61,12 @@ def delete_post(post_id):
         flash('You are not authorized to delete this post.', 'danger')
         return redirect(url_for('posts.view_post', post_id=post.id))
 
-    db.session.delete(post)
-    db.session.commit()
-    flash('Post deleted successfully!', 'success')
+    form = DeletePostForm()
 
-    # You can redirect to a specific page after deletion
-    return redirect(url_for('index'))
+    if form.validate_on_submit():
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post deleted successfully!', 'success')
+        return redirect(url_for('dashboard.index'))
+
+    return render_template('posts/delete_post.html', post=post, form=form)

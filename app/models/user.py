@@ -10,12 +10,15 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    # Define a relationship with the Post model
+    posts = db.relationship('Post', back_populates='author')
+
     def set_password(self, password):
         # Assuming the provided password is already hashed
         self.password = password
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)
+        return self.password == password
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"

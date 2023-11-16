@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+    <a href="{{ url_for('dashboard.index') }}" class="btn btn-secondary">Back to Home</a>
 
     {% if current_user.is_authenticated and current_user == post.author %}
       <a href="{{ url_for('posts.edit_post', post_id=post.id) }}" class="btn btn-primary">Edit Post</a>
