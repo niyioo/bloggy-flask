@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact - Bloggy{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Contact Us</h2>
+    <p>Have questions or feedback? We'd love to hear from you!</p>
+
+    <form>
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter your name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label for="message">Your Message</label>
+        <textarea class="form-control" id="message" rows="5" placeholder="Type your message"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+  </div>
+{% endblock %}

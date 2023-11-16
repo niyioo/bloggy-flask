@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}About - Bloggy{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>About Bloggy</h2>
+    <p>Welcome to Bloggy, a platform where users can share their thoughts and ideas through blog posts.</p>
+
+    <h3>Our Mission</h3>
+    <p>Empowering individuals to express themselves and connect with a global audience through the art of blogging.</p>
+
+    <h3>Why Choose Bloggy?</h3>
+    <ul>
+      <li>User-friendly interface for easy content creation.</li>
+      <li>Community-driven platform for sharing and engaging with diverse ideas.</li>
+      <li>Simple and effective tools for managing your blog posts.</li>
+    </ul>
+
+    <p>Ready to start your blogging journey? <a href="{{ url_for('auth.register') }}">Sign up</a> today!</p>
+  </div>
+{% endblock %}

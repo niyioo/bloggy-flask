@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Bloggy{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Welcome to Bloggy!</h2>
+    <p>This is the home page where you can explore and read blog posts.</p>
+
+    {% if current_user.is_authenticated %}
+      <p>Hello, {{ current_user.username }}! <a href="{{ url_for('auth.logout') }}">Logout</a></p>
+    {% else %}
+      <p>Not logged in? <a href="{{ url_for('auth.login') }}">Login</a> or <a href="{{ url_for('auth.register') }}">Register</a>.</p>
+    {% endif %}
+
+    <!-- Display a list of blog posts -->
+    <div class="row">
+      {% for post in posts %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ post.title }}</h5>
+              <p class="card-text">{{ post.content[:100] }}...</p>
+              <a href="{{ url_for('posts.view_post', post_id=post.id) }}" class="btn btn-primary">Read more</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

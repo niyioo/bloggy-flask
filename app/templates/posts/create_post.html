@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Post - Bloggy{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Create a New Post</h2>
+
+    <form method="post" action="{{ url_for('posts.create_post') }}">
+      {{ form.hidden_tag() }}
+
+      <div class="form-group">
+        <label for="title">Title</label>
+        {{ form.title(class="form-control", placeholder="Enter the title of your post") }}
+      </div>
+
+      <div class="form-group">
+        <label for="content">Content</label>
+        {{ form.content(class="form-control", placeholder="Write your post content here") }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+
+    <p>Return to the <a href="{{ url_for('index') }}">home page</a>.</p>
+  </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+/* Bootstrap styles go here */
+
+/* Example: */
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+
+/* Your custom styles go here */
+/* Example: */
+body {
+  padding-top: 56px; /* Adjust the top padding based on your navigation bar height */
+}
+
+.container {
+  margin-top: 20px;
+}
+
+/* Add more styles as needed */

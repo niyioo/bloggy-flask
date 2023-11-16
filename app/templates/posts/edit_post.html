@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Post - Bloggy{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Edit Post</h2>
+
+    <form method="post" action="{{ url_for('posts.edit_post', post_id=post.id) }}">
+      {{ form.hidden_tag() }}
+      <input type="hidden" name="_method" value="PUT">
+
+      <div class="form-group">
+        <label for="title">Title</label>
+        {{ form.title(class="form-control", value=post.title) }}
+      </div>
+
+      <div class="form-group">
+        <label for="content">Content</label>
+        {{ form.content(class="form-control", value=post.content) }}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Post</button>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
