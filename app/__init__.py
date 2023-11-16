@@ -17,12 +17,14 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 from .routes.auth import auth
+from .routes.dashboard import dashboard
 from .routes.posts import posts
 from .routes.index import main
 from app.models.user import User
 from app.models.post import Post
 
 app.register_blueprint(auth, url_prefix='/auth')
+app.register_blueprint(dashboard, url_prefix='/dashboard')
 app.register_blueprint(posts, url_prefix='/posts')
 app.register_blueprint(main, url_prefix='/')
 

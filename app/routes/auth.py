@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('dashboard.index'))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -17,9 +17,14 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             flash('Login successful!', 'success')
-            return redirect(url_for('index'))
-        else:
-            flash('Invalid username or password', 'danger')
+            
+            # Print a debug statement
+            print("User logged in:", current_user.username)
+
+            # Redirect to the dashboard or another page after login
+            return redirect(url_for('dashboard.index'))
+
+        flash('Login unsuccessful. Please check your username and password.', 'danger')
 
     return render_template('auth/login.html', form=form)
 
@@ -32,16 +37,12 @@ def logout():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Registration successful! You can now log in.', 'success')
+        flash('Congratulations, you are now a registered user!')
         return redirect(url_for('auth.login'))
-
-    return render_template('auth/register.html', form=form)
+    return render_template('auth/register.html', title='Register', form=form)

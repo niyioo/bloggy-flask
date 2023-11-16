@@ -1,0 +1,35 @@
+<!-- app/templates/dashboard/index.html -->
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Welcome to your Dashboard, {{ current_user.username }}!</h2>
+    
+    <!-- Link to create a new post -->
+    <p><a href="{{ url_for('posts.create_post') }}">Create a new post</a></p>
+
+    <!-- List of user's posts with links to view, edit, and delete -->
+    <ul>
+      {% for post in current_user.posts %}
+        <li>
+          <strong>{{ post.title }}</strong>
+          <p>{{ post.content }}</p>
+          <!-- Link to view the post -->
+          <a href="{{ url_for('posts.view_post', post_id=post.id) }}">View</a>
+          
+          <!-- Link to edit the post (only shown to the post author) -->
+          {% if current_user == post.author %}
+            <a href="{{ url_for('posts.edit_post', post_id=post.id) }}">Edit</a>
+          {% endif %}
+          
+          <!-- Link to delete the post (only shown to the post author) -->
+          {% if current_user == post.author %}
+            <a href="{{ url_for('posts.delete_post', post_id=post.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
