@@ -1,5 +1,4 @@
 # test_posts.py
-
 import unittest
 from app import app, db
 from app.models.user import User
@@ -7,14 +6,12 @@ from app.models.post import Post
 
 class PostsTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = app(testing=True)
-        self.client = self.app.test_client()
-
-        with self.app.app_context():
+        self.app = app.test_client()
+        with app.app_context():
             db.create_all()
 
     def tearDown(self):
-        with self.app.app_context():
+        with app.app_context():
             db.drop_all()
 
     def test_create_post(self):
@@ -24,10 +21,10 @@ class PostsTestCase(unittest.TestCase):
         db.session.commit()
 
         # Login as the test user
-        self.client.post('/login', data=dict(username='testuser', password='testpassword'))
+        self.app.post('/login', data=dict(username='testuser', password='testpassword'))
 
         # Create a test post
-        response = self.client.post('/create', data=dict(title='Test Post', content='This is a test post'))
+        response = self.app.post('/create', data=dict(title='Test Post', content='This is a test post'))
 
         # Check if the post is created successfully (you may need to adjust this based on your actual implementation)
         self.assertEqual(response.status_code, 200)
@@ -45,7 +42,7 @@ class PostsTestCase(unittest.TestCase):
         db.session.commit()
 
         # View the test post
-        response = self.client.get(f'/{post.id}')
+        response = self.app.get(f'/{post.id}')
 
         # Check if the post is displayed (you may need to adjust this based on your actual implementation)
         self.assertEqual(response.status_code, 200)
@@ -59,7 +56,7 @@ class PostsTestCase(unittest.TestCase):
         db.session.commit()
 
         # Login as the test user
-        self.client.post('/login', data=dict(username='testuser', password='testpassword'))
+        self.app.post('/login', data=dict(username='testuser', password='testpassword'))
 
         # Create a test post
         post = Post(title='Test Post', content='This is a test post', author=user)
@@ -67,7 +64,7 @@ class PostsTestCase(unittest.TestCase):
         db.session.commit()
 
         # Edit the test post
-        response = self.client.post(f'/edit/{post.id}', data=dict(title='Updated Post', content='This post is updated'))
+        response = self.app.post(f'/edit/{post.id}', data=dict(title='Updated Post', content='This post is updated'))
 
         # Check if the post is edited successfully (you may need to adjust this based on your actual implementation)
         self.assertEqual(response.status_code, 200)
@@ -80,7 +77,7 @@ class PostsTestCase(unittest.TestCase):
         db.session.commit()
 
         # Login as the test user
-        self.client.post('/login', data=dict(username='testuser', password='testpassword'))
+        self.app.post('/login', data=dict(username='testuser', password='testpassword'))
 
         # Create a test post
         post = Post(title='Test Post', content='This is a test post', author=user)
@@ -88,7 +85,7 @@ class PostsTestCase(unittest.TestCase):
         db.session.commit()
 
         # Delete the test post
-        response = self.client.post(f'/delete/{post.id}')
+        response = self.app.post(f'/delete/{post.id}')
 
         # Check if the post is deleted successfully (you may need to adjust this based on your actual implementation)
         self.assertEqual(response.status_code, 200)

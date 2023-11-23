@@ -1,23 +1,20 @@
 # test_auth.py
-
 import unittest
 from app import app, db
 from app.models.user import User
 
 class AuthTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = app(testing=True)
-        self.client = self.app.test_client()
-
-        with self.app.app_context():
+        self.app = app.test_client()
+        with app.app_context():
             db.create_all()
 
     def tearDown(self):
-        with self.app.app_context():
+        with app.app_context():
             db.drop_all()
 
     def test_user_registration(self):
-        response = self.client.post('/register', data=dict(
+        response = self.app.post('/register', data=dict(
             username='testuser',
             email='testuser@example.com',
             password='testpassword',
@@ -35,7 +32,7 @@ class AuthTestCase(unittest.TestCase):
         db.session.add(user)
         db.session.commit()
 
-        response = self.client.post('/login', data=dict(
+        response = self.app.post('/login', data=dict(
             username='testuser',
             password='testpassword',
         ), follow_redirects=True)
@@ -44,7 +41,6 @@ class AuthTestCase(unittest.TestCase):
         # Add assertions for successful login
 
     # ... other authentication-related tests
-
 
 if __name__ == '__main__':
     unittest.main()

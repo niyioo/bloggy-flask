@@ -1,5 +1,4 @@
 # test_db.py
-
 import unittest
 from app import app, db
 from app.models.user import User
@@ -7,25 +6,23 @@ from app.models.post import Post
 
 class DatabaseTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = app(testing=True)
-        self.client = self.app.test_client()
-
-        with self.app.app_context():
+        self.app = app.test_client()
+        with app.app_context():
             db.create_all()
 
     def tearDown(self):
-        with self.app.app_context():
+        with app.app_context():
             db.drop_all()
 
     def test_database_initialization(self):
         # Test if the database is properly initialized
-        with self.app.app_context():
+        with app.app_context():
             self.assertIsNotNone(db)
             self.assertTrue(db.engine)
 
     def test_user_model(self):
         # Test if the User model is defined and can be used
-        with self.app.app_context():
+        with app.app_context():
             user = User(username='testuser', email='test@example.com', password='testpassword')
             db.session.add(user)
             db.session.commit()
@@ -36,7 +33,7 @@ class DatabaseTestCase(unittest.TestCase):
 
     def test_post_model(self):
         # Test if the Post model is defined and can be used
-        with self.app.app_context():
+        with app.app_context():
             user = User(username='testuser', email='test@example.com', password='testpassword')
             db.session.add(user)
             db.session.commit()

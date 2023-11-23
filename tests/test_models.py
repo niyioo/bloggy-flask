@@ -1,5 +1,4 @@
 # test_models.py
-
 import unittest
 from app import app, db
 from app.models.user import User
@@ -8,14 +7,12 @@ from app.models.comment import Comment
 
 class ModelsTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = app(testing=True)
-        self.client = self.app.test_client()
-
-        with self.app.app_context():
+        self.app = app.test_client()
+        with app.app_context():
             db.create_all()
 
     def tearDown(self):
-        with self.app.app_context():
+        with app.app_context():
             db.drop_all()
 
     def test_user_creation(self):
@@ -64,7 +61,6 @@ class ModelsTestCase(unittest.TestCase):
         self.assertEqual(retrieved_comment.post, post)
 
     # ... other model-related tests
-
 
 if __name__ == '__main__':
     unittest.main()
