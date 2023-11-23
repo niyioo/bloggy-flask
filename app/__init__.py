@@ -22,6 +22,7 @@ from .routes.posts import posts
 from .routes.index import main
 from app.models.user import User
 from app.models.post import Post
+from app.models.comment import Comment
 
 app.register_blueprint(auth, url_prefix='/auth')
 app.register_blueprint(dashboard, url_prefix='/dashboard')

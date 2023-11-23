@@ -20,4 +20,25 @@
       <a href="{{ url_for('posts.delete_post', post_id=post.id) }}" class="btn btn-danger">Delete Post</a>
     {% endif %}
   </div>
+
+  <h3>Comments</h3>
+  {% for comment in post.comments %}
+    <p class="text-muted">
+      {{ comment.user.username }} commented on {{ comment.created_at.strftime('%B %d, %Y') }}:
+      {{ comment.content }}
+    </p>
+  {% endfor %}
+
+  {% if current_user.is_authenticated %}
+    <form method="post" action="{{ url_for('posts.view_post', post_id=post.id) }}">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.content.label(class="form-control-label") }}
+        {{ form.content(class="form-control") }}
+      </div>
+      <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+  {% else %}
+    <p>Please log in to post comments.</p>
+  {% endif %}
 {% endblock %}

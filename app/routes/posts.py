@@ -3,8 +3,9 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 from flask import request
 from app import db
+from app.models.comment import Comment
 from app.models.post import Post
-from app.forms import PostForm, DeletePostForm
+from app.forms import PostForm, DeletePostForm, CommentForm
 
 posts = Blueprint('posts', __name__)
 
@@ -21,10 +22,19 @@ def create_post():
 
     return render_template('posts/create_post.html', form=form)
 
-@posts.route('/<int:post_id>')
+@posts.route('/<int:post_id>', methods=['GET', 'POST'])
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('posts/view_post.html', post=post)
+    form = CommentForm()
+
+    if form.validate_on_submit() and current_user.is_authenticated:
+        comment = Comment(content=form.content.data, user=current_user, post=post)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Comment posted successfully!', 'success')
+        return redirect(url_for('posts.view_post', post_id=post.id))
+
+    return render_template('posts/view_post.html', post=post, form=form)
 
 @posts.route('/edit/<int:post_id>', methods=['GET', 'POST'])
 @login_required
