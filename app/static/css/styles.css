@@ -62,4 +62,38 @@ body {
       padding-top: 56px; /* Adjust the top padding for smaller screens */
     }
   }
-  
+
+  /* Additional Custom Styles */
+
+/* Comment Form Styles */
+form {
+  margin-top: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Comment Section Styles */
+.comment-section {
+  margin-top: 15px;
+}
+
+.comment-section h6 {
+  margin-bottom: 10px;
+}
+
+.comment-section p {
+  margin-bottom: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+  .container {
+      margin-top: 56px;
+  }
+
+  .card {
+      margin-bottom: 10px;
+  }
+}
