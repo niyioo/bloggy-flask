@@ -1,12 +1,14 @@
 # test_models.py
 
 import unittest
-from app import create_app, db
-from app.models import User, Post, Comment
+from app import app, db
+from app.models.user import User
+from app.models.post import Post
+from app.models.comment import Comment
 
 class ModelsTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = create_app(testing=True)
+        self.app = app(testing=True)
         self.client = self.app.test_client()
 
         with self.app.app_context():

@@ -1,12 +1,12 @@
 # test_auth.py
 
 import unittest
-from app import create_app, db
-from app.models import User
+from app import app, db
+from app.models.user import User
 
 class AuthTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = create_app(testing=True)
+        self.app = app(testing=True)
         self.client = self.app.test_client()
 
         with self.app.app_context():
