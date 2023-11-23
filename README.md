@@ -124,7 +124,9 @@ SQLALCHEMY_DATABASE_URI = 'mysql://username:password@localhost/bloggy_db'
 Initialize and migrate the database:
 
 flask db init
+
 flask db migrate -m "Initial database setup"
+
 flask db upgrade
 
 ## Running the Application
