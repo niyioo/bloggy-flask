@@ -150,3 +150,5 @@ If you'd like to contribute, please follow the Contributing Guidelines.
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
+theme: jekyll-theme-minimal
+
