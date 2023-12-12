@@ -4,24 +4,24 @@
 
 {% block content %}
   <div class="container mt-5">
-    <h2>Welcome to Bloggy!</h2>
-    <p>This is the home page where you can explore and read blog posts.</p>
+    <h2 class="text-primary">Welcome to Bloggy!</h2>
+    <p class="lead">This is the home page where you can explore and read blog posts.</p>
 
     {% if current_user.is_authenticated %}
-      <p>Hello, {{ current_user.username }}! <a href="{{ url_for('auth.logout') }}">Logout</a></p>
+      <p>Hello, {{ current_user.username }}! <a href="{{ url_for('auth.logout') }}" class="btn btn-danger">Logout</a></p>
     {% else %}
-      <p>Not logged in? <a href="{{ url_for('auth.login') }}">Login</a> or <a href="{{ url_for('auth.register') }}">Register</a>.</p>
+      <p>Not logged in? <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Login</a> or <a href="{{ url_for('auth.register') }}" class="btn btn-secondary">Register</a>.</p>
     {% endif %}
 
     <!-- Display a list of blog posts -->
     <div class="row">
       {% for post in posts %}
         <div class="col-md-6 col-lg-4 mb-4">
-          <div class="card">
+          <div class="card border-primary">
             <div class="card-body">
-              <h5 class="card-title">{{ post.title }}</h5>
-              <p class="card-text">{{ post.content[:150] }}...</p>
-              <a href="{{ url_for('posts.view_post', post_id=post.id) }}" class="btn btn-primary">Read more</a>
+              <h5 class="card-title text-primary">{{ post.title }}</h5>
+              <p class="card-text text-muted">{{ post.content[:150] }}...</p>
+              <a href="{{ url_for('posts.view_post', post_id=post.id) }}" class="btn btn-outline-primary">Read more</a>
 
               <!-- Comment Form -->
               <form method="post" action="{{ url_for('posts.add_comment', post_id=post.id) }}" class="mt-3">
@@ -29,14 +29,14 @@
                 <div class="form-group">
                   <textarea name="content" class="form-control" placeholder="Leave a comment" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-secondary">Add Comment</button>
+                <button type="submit" class="btn btn-outline-secondary">Add Comment</button>
               </form>
 
               <!-- Display Comments -->
               <div class="mt-3">
-                <h6>Comments:</h6>
+                <h6 class="text-primary">Comments:</h6>
                 {% for comment in post.comments %}
-                  <p>{{ comment.content }}</p>
+                  <p class="text-muted">{{ comment.content }}</p>
                 {% endfor %}
               </div>
             </div>

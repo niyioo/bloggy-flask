@@ -15,33 +15,32 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url_for('main.home') }}">Bloggy</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <a class="navbar-brand" href="{{ url_for('main.home', _external=True) }}">Bloggy</a>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.home', _external=True) }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.about', _external=True) }}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.contact', _external=True) }}">Contact</a></li>
-                <!-- Add more navigation links as needed -->
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.home') }}">Bloggy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.about') }}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('main.contact') }}">Contact</a></li>
+                    <!-- Add more navigation links as needed -->
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
+    
 {% block content %}
     <!-- Content block to be filled by child templates -->
 {% endblock %}
 
-<!--<!-- Include your main.js file 
+<!--Include your main.js file -->
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-<!-- Optional: Include additional scripts or external libraries here 
+<!-- Optional: Include additional scripts or external libraries here -->
 <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
--->
+
 </body>
 </html>
